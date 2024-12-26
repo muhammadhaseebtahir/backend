@@ -1,10 +1,10 @@
 const express = require("express")
-const serverLess= require("serverless-http")
+
 const bodyParser = require("body-parser")
 const app = express()
-const dbConnected= require("./src/config/db")
+const dbConnected= require("./config/db")
 const cors = require("cors")
-const auth = require("./src/routes/Auth")
+const auth = require("./routes/Auth")
 app.use(cors())
 app.use(bodyParser.json())
 require("dotenv").config();
@@ -18,5 +18,5 @@ app.listen(PORT,()=>{
     
 })
 app.use("/auth",auth)
-export const handler =serverLess(app)
+
 
