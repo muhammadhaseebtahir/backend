@@ -7,7 +7,7 @@ const getRandomId = () => Math.random().toString(36).slice(2) + Math.random().to
 
 // Route to add a new product
 router.post('/add-product', async (req, res) => {
-    console.log(req.body);  // Log the entire request body to check if `sizes` is populated.
+    
 
     const { productName, description, type, price, imageUrl, userId, sizes } = req.body;
 

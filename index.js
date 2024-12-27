@@ -15,7 +15,7 @@ app.get("/",(req,res)=>{
 })
 const {PORT=8000} = process.env
 app.listen(PORT,()=>{
-    console.log(`Server is Runing ${PORT}`);
+    console.log(`Server is Runing  ${PORT}`);
     
 })
 app.use("/auth",auth)
