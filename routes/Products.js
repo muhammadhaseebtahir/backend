@@ -95,7 +95,7 @@ router.put('/update-product/:productId', async (req, res) => {
     }
 });
 // Route to get products by userId
-router.get('/get-products', async (req, res) => {
+router.post('/get-products', async (req, res) => {
   const {userId}  = req.body // Get userId from query params
 
   if (!userId) {
