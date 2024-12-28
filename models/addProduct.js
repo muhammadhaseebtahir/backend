@@ -23,12 +23,10 @@ const productSchema = new mongoose.Schema(
       },
       userId: {
         type: String,
-        required: true,  // This should also be marked required
-      },
+          },
       productId: {
         type: String,
-        required: true,  // Ensure productId is required
-      },
+              },
       imageUrl: {
         type: String,
         required: true,
@@ -39,7 +37,7 @@ const productSchema = new mongoose.Schema(
     }
   );
   
-  const Product = mongoose.model('addProduct', productSchema);
+  const Product = mongoose.model('newProduct', productSchema);
   
   module.exports = Product;
   

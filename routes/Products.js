@@ -1,5 +1,5 @@
 const express = require('express');
-const Product = require('../models/addProduct'); // Assuming you have the Product model
+const Product = require('../models/addproduct')
 const router = express.Router();
 
 // Function to generate a random ID for products
@@ -95,29 +95,51 @@ router.put('/update-product/:productId', async (req, res) => {
     }
 });
 // Route to get products by userId
-router.post('/get-products', async (req, res) => {
-  const {userId}  = req.body // Get userId from query params
-
-  if (!userId) {
-    return res.status(400).json({ message: 'User ID is required' });
-  }
-
-  try {
-    // Fetch products from the database filtered by userId
-    const products = await Product.find({ userId });
-
-    // If no products are found for the user, return a 404 error
-    if (products.length === 0) {
-      return res.status(404).json({ message: 'No products found for this user' });
+// Route to get all products (without userId filtering)
+// router.get('/get-products', async (req, res) => {
+//     try {
+//       // Fetch all products from the database (without any userId filter)
+//       const products = await Product.find();
+  
+//       // If no products are found, return a 404 error
+//       if (products.length === 0) {
+//         return res.status(404).json({ message: 'No products found' });
+//       }
+  
+//       // Send the list of products with a 200 status
+//       res.status(200).json({ products });
+//     } catch (error) {
+//       console.error('Error fetching products:', error);
+//       res.status(500).json({ message: 'Failed to fetch products' });
+//     }
+//   });
+router.get('/get-products/:userId', async (req, res) => {
+    const { userId } = req.params;  // Get userId from the request params
+  
+    // Validate that userId is provided
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required' });
     }
-
-    // Send the list of products with a 200 status
-    res.status(200).json({ products });
-  } catch (error) {
-    console.error('Error fetching user products:', error);
-    res.status(500).json({ message: 'Failed to fetch products' });
-  }
-});
+  
+    try {
+      // Fetch products for the specific user by userId
+      const products = await Product.find({ userId });
+    // const product = await Product.findOne({ userId })
+  
+      // If no products are found, return a 404 error
+      if (products.length === 0) {
+        return res.status(404).json({ message: 'No products found for this user' });
+      }
+  
+      // Send the list of products with a 200 status
+      res.status(200).json({ products });
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      res.status(500).json({ message: 'Failed to fetch products' });
+    }
+  });
+  
+  
 
 // Route to delete a product by productId and userId
 router.delete('/delete-product/:productId', async (req, res) => {
