@@ -18,8 +18,8 @@ const productSchema = new mongoose.Schema(
         required: true,
       },
       sizes: {
-        type: [String],  // Array of strings for sizes
-        required: true,  // This ensures that sizes cannot be empty
+        type: [String],  
+        required: true,  
       },
       userId: {
         type: String,
@@ -37,7 +37,7 @@ const productSchema = new mongoose.Schema(
     }
   );
   
-  const Product = mongoose.model('newProduct', productSchema);
+  const AddProduct = mongoose.model('newProduct', productSchema);
   
-  module.exports = Product;
+  module.exports = AddProduct;
   
