@@ -173,7 +173,7 @@
 
 
 const express = require('express');
-const Event = require('../models/ProductSchema'); // Assuming you have an Event model created
+const Event = require('../models/EventSchema'); // Assuming you have an Event model created
 const router = express.Router();
 
 
@@ -230,10 +230,7 @@ router.put('/update-event/:eventId', async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Validate visibility (either public or private)
-    if (visibility !== 'public' && visibility !== 'private') {
-        return res.status(400).json({ message: 'Visibility must be either "public" or "private"' });
-    }
+ 
 
     try {
         // Find the event by eventId and userId to ensure the user is updating their own event
