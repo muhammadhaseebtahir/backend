@@ -95,31 +95,48 @@ router.put('/update-product/:productId', async (req, res) => {
     }
 });
 
-router.get('/get-products/:userId', async (req, res) => {
-    const { userId } = req.params;  
+router.get('/get-products', async (req, res) => {
+  try {
+    // Fetch all products from the Product collection
+    const products = await Product.find();
+
+    // If no products are found, return a 404 error
+    if (products.length === 0) {
+      return res.status(404).json({ message: 'No products found' });
+    }
+
+    // Send the list of products with a 200 status
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Failed to fetch products' });
+  }
+});
+// router.get('/get-products/:userId', async (req, res) => {
+//     const { userId } = req.params;  
   
    
-    if (!userId) {
-      return res.status(400).json({ message: 'User ID is required' });
-    }
+//     if (!userId) {
+//       return res.status(400).json({ message: 'User ID is required' });
+//     }
   
-    try {
-      // Fetch products for the specific user by userId
-      const products = await Product.find({ userId });
-    // const product = await Product.findOne({ userId })
+//     try {
+//       // Fetch products for the specific user by userId
+//       const products = await Product.find({ userId });
+//     // const product = await Product.findOne({ userId })
   
-      // If no products are found, return a 404 error
-      if (products.length === 0) {
-        return res.status(404).json({ message: 'No products found for this user' });
-      }
+//       // If no products are found, return a 404 error
+//       if (products.length === 0) {
+//         return res.status(404).json({ message: 'No products found for this user' });
+//       }
   
-      // Send the list of products with a 200 status
-      res.status(200).json({ products });
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      res.status(500).json({ message: 'Failed to fetch products' });
-    }
-  });
+//       // Send the list of products with a 200 status
+//       res.status(200).json({ products });
+//     } catch (error) {
+//       console.error('Error fetching products:', error);
+//       res.status(500).json({ message: 'Failed to fetch products' });
+//     }
+//   });
   
   
 
