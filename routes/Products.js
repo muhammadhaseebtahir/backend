@@ -312,7 +312,7 @@ router.get('/get-events/:userId', async (req, res) => {
       }
 
       // Send the list of events with a 200 status
-      res.status(200).json({ events });
+      res.status(200).json({ message:"seccessful",events });
   } catch (error) {
       console.error('Error fetching events:', error);
       res.status(500).json({ message: 'Failed to fetch events' });

@@ -67,6 +67,9 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    eventId:{
+      type: String,
+    },
     visibility: {
       type: [String],
 
