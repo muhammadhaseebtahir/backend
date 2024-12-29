@@ -294,6 +294,30 @@ router.get('/get-events', async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch events' });
     }
 });
+// Route to get events by userId
+router.get('/get-events/:userId', async (req, res) => {
+  const { userId } = req.params;  // Get userId from request params
+
+  if (!userId) {
+      return res.status(400).json({ message: 'User ID is required' });
+  }
+
+  try {
+      // Fetch events for the specific user by userId
+      const events = await Event.find({ userId });
+
+      // If no events are found for the given userId
+      if (events.length === 0) {
+          return res.status(404).json({ message: 'No events found for this user' });
+      }
+
+      // Send the list of events with a 200 status
+      res.status(200).json({ events });
+  } catch (error) {
+      console.error('Error fetching events:', error);
+      res.status(500).json({ message: 'Failed to fetch events' });
+  }
+});
 
 // Route to delete an event by eventId and userId
 router.delete('/delete-event/:eventId', async (req, res) => {
